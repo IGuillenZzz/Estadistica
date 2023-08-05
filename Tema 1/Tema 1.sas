@@ -1,8 +1,8 @@
-/** El conjunto de datos clase contiene la informaciÛn relativa a los alumnos de una clase de baile en USA. La altura esta en pulgadas (1 pulgada=2.54 cm.) y el peso en libras (1 libra= 0.45 kilos). **/
+/** El conjunto de datos clase contiene la informaci√≥n relativa a los alumnos de una clase de baile en USA. La altura esta en pulgadas (1 pulgada=2.54 cm.) y el peso en libras (1 libra= 0.45 kilos). **/
 
 
-/* a) Crear el conjunto de datos clase_hispana y guardarlo en una librerÌa permanente conteniendo la informaciÛn de conjunto de datos clase pero con la altura en centÌmetros y el peso en kilos. */
-libname lib "C:\Users\isma_\Desktop\Github\Software I\Tema 1";
+/* a) Crear el conjunto de datos clase_hispana y guardarlo en una librer√≠a permanente conteniendo la informaci√≥n de conjunto de datos clase pero con la altura en cent√≠metros y el peso en kilos. */
+libname lib "path";
 data lib.clase_hispania;
 input nombre $ sexo $ edad $ altura peso;
 	peso=peso*.45;
@@ -29,25 +29,25 @@ THOMAS  M  11  57.5  85.0
 WILLIAM M  15  66.5 112.0
 ;
 
-/*b) obtener la media y la desviaciÛn tÌpica del peso y de la altura para cada sexo.*/
+/*b) obtener la media y la desviaci√≥n t√≠pica del peso y de la altura para cada sexo.*/
 proc means data= lib.clase_hispania mean std;
 class sexo;
 var peso altura;
 run;
 
-/*c)  Crear los conjuntos de datos masculino y femenino con sÛlo chicos y solo chicas respectivamente. */
+/*c)  Crear los conjuntos de datos masculino y femenino con s√≥lo chicos y solo chicas respectivamente. */
 data lib.clase_hispania_M  lib.clase_hispania_F;
 	set lib.clase_hispania;
 	if sexo="F" then output  lib.clase_hispania_F;
 	else output  lib.clase_hispania_M;
 run;
 
-/*d) Ordenar las observaciones de los conjuntos creados en el anterior apartado seg˙n el peso de los individuos. */
+/*d) Ordenar las observaciones de los conjuntos creados en el anterior apartado seg√∫n el peso de los individuos. */
 
 proc sort data= lib.clase_hispania_M;by peso;run;
 proc sort data= lib.clase_hispania_F;by peso;run;
 
-/*e) Representar gr·ficamente la altura (eje y) frente al peso (eje x) en una gr·fica tanto para chicas como para chicos. **/
+/*e) Representar gr√°ficamente la altura (eje y) frente al peso (eje x) en una gr√°fica tanto para chicas como para chicos. **/
 
 proc sgplot data= lib.clase_hispania;
 	scatter x= peso y=altura;
@@ -57,17 +57,17 @@ data lib.clase_baile;
 set sashelp.class;
 run;
 
-/*f) Ordenar el conjunto de datos clase_hispana que creaste en el apartado a) seg˙n el peso.*/
+/*f) Ordenar el conjunto de datos clase_hispana que creaste en el apartado a) seg√∫n el peso.*/
 proc sort data= lib.clase_hispania;by peso;run;
 
-/*g) Representar gr·ficamente en una misma gr·fica la altura frente al peso (unida por puntos) seg˙n el sexo. (Es decir se pide una figura con dos gr·ficas,  una para las chicas y otra para los chicos). */
+/*g) Representar gr√°ficamente en una misma gr√°fica la altura frente al peso (unida por puntos) seg√∫n el sexo. (Es decir se pide una figura con dos gr√°ficas,  una para las chicas y otra para los chicos). */
 
 proc gplot data= lib.clase_hispania;
 	symbol v=star i=j h=2 w=2;
 	plot altura*peso=sexo;
 run;
 
-/*h) Representar gr·ficamente dos rectas de regresiÛn que relacionen la altura frente al peso (una para chicas y otra para chicos). */
+/*h) Representar gr√°ficamente dos rectas de regresi√≥n que relacionen la altura frente al peso (una para chicas y otra para chicos). */
 proc sgplot data= lib.clase_hispania;
 	scatter x= peso y=altura/group=sexo;
 	reg y=altura x=peso/group=sexo;
