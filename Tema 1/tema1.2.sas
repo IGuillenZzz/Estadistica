@@ -1,8 +1,8 @@
-/*Lectura de datos de la serie histórica de tablas de mortalidad desde 1991 por año edad y funciones
+/*Lectura de datos de la serie histÃ³rica de tablas de mortalidad desde 1991 por aÃ±o edad y funciones
 https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736177004&menu=resultados&idp=1254735573002 
 
 Csv separado por tabuladores
-Variables importantes estan en la columna funciones: Tasa de mortalidad	Promedio de años vividos el último año de vida	Riesgo de muerte	Supervivientes	Defunciones teóricas	Población estacionaria	Tiempo por vivir	Esperanza de vida
+Variables importantes estan en la columna funciones: Tasa de mortalidad	Promedio de aÃ±os vividos el Ãºltimo aÃ±o de vida	Riesgo de muerte	Supervivientes	Defunciones teÃ³ricas	PoblaciÃ³n estacionaria	Tiempo por vivir	Esperanza de vida
 
 El objetivo es tener en una tabla la funcion de supervivencia y prob de mortalidad para cada periodo, edad y sexo (no ambos)
 */
@@ -25,7 +25,7 @@ data WORK.DATOS    ;
 data f_sup_M f_sup_F;
 set datos(rename=(edad=edad2));
 
-if edad2="100 y más" then edad2=100;
+if edad2="100 y mÃ¡s" then edad2=100;
 else edad2=input(edad2,2.);
 edad2=compress(edad2);
 drop edad2;
@@ -56,16 +56,16 @@ prob_muerte_f=(lag(F_supervivencia_f)-F_supervivencia_f)/lag(F_supervivencia_f);
 if edad=0 then prob_muerte_f=0;
 drop total sexo;run;
 
-libname lib "C:\Users\isma_\Desktop\Github\Software I\Tema 1";
+libname lib "path";
 
 data lib.f_sup_both;
 merge f_sup_F f_sup_M;
 by periodo edad;run;
 
 /*a)  Incluir las siguientes variables: 
-    • Prob_supervivencia_M, es la complementaria a la probabilidad de muerte para un hombre a cualquier edad y según el año en el que se valore. 
-    • Prob_supervivencia_F, es la complementaria a la probabilidad de muerte para una mujer, a cualquier edad y según el año en el que se valore. 
-	• Cociente_supervivencia,  es el cociente entre la supervivencia de una mujer y la de un hombre para una edad cualquiera. (razon/cociente de feminidad)
+    â€¢ Prob_supervivencia_M, es la complementaria a la probabilidad de muerte para un hombre a cualquier edad y segÃºn el aÃ±o en el que se valore. 
+    â€¢ Prob_supervivencia_F, es la complementaria a la probabilidad de muerte para una mujer, a cualquier edad y segÃºn el aÃ±o en el que se valore. 
+	â€¢ Cociente_supervivencia,  es el cociente entre la supervivencia de una mujer y la de un hombre para una edad cualquiera. (razon/cociente de feminidad)
 */
 
 data lib.f_sup_both;
@@ -83,7 +83,7 @@ class edad;
 output out=prob_edad mean=;
 run;
 
-/*c) Realizar una grafica que contenga la prob_supervivencia_M y la prob_supervivencia_F media para cada edad  durante el periodo (las dos gráficas en la misma figura). */
+/*c) Realizar una grafica que contenga la prob_supervivencia_M y la prob_supervivencia_F media para cada edad  durante el periodo (las dos grÃ¡ficas en la misma figura). */
 proc sgplot data=prob_edad (where=( _type_=1));
 title "Media de las probabilidades de supervivencia";
 title2 "para hombres y mujeres entre 1991 y 2022*";
@@ -94,23 +94,23 @@ yaxis label="Probabilidad media de supervivencia";
 label Prob_supervivencia_F="Mujeres" prob_supervivencia_M="Hombres";
 run;
 
-/*/d) Realizar otra gráfica con el cociente_supervivencia medio frente a la  edad.*/
+/*/d) Realizar otra grÃ¡fica con el cociente_supervivencia medio frente a la  edad.*/
 
 proc sgplot data=prob_edad (where=( _type_=1));
-title "Media de la razón de supervivencia";
+title "Media de la razÃ³n de supervivencia";
 title2 "entre hombres y mujeres entre 1991 y 2022*";
 series   x=edad y=cociente_supervivencia /name="Cociente Supervivencia";
 xaxis values=(0 to 100 by 5) minor minorcount=1  grid display=all;
-yaxis label="Razón media de supervivencia";
+yaxis label="RazÃ³n media de supervivencia";
 label cociente_supervivencia="Mujeres" ;
 run;
 
-/*e) Evaluar gráficamente la evolución de la prob_supervivencia_M y prob_supervivencia_F y Cociente de Supervivencia 
-para los 18 años durante el periodo 1991-2012. (graficas exclusivas para ese grupo de edad).*/
+/*e) Evaluar grÃ¡ficamente la evoluciÃ³n de la prob_supervivencia_M y prob_supervivencia_F y Cociente de Supervivencia 
+para los 18 aÃ±os durante el periodo 1991-2012. (graficas exclusivas para ese grupo de edad).*/
 
 proc sgplot data=lib.f_sup_both (where=(edad=18));
 title "Probabilidad de supervivencia y Cociente de Supervivencia";
-title2 "para edad=18 años durante el periodo 1991-2022";
+title2 "para edad=18 aÃ±os durante el periodo 1991-2022";
 series   x=periodo y=prob_supervivencia_M /name="Hombres";
 series   x=periodo y=prob_supervivencia_F /name="Mujeres";
 series   x=periodo y=cociente_supervivencia/name="Cociente Supervivencia";
@@ -123,10 +123,10 @@ run;
 
 
 
-/*f) repetir para los 52 años*/
+/*f) repetir para los 52 aÃ±os*/
 proc sgplot data=lib.f_sup_both (where=(edad=52));
 title "Probabilidad de supervivencia y Cociente de Supervivencia";
-title2 "para edad=52 años durante el periodo 1991-2022";
+title2 "para edad=52 aÃ±os durante el periodo 1991-2022";
 series   x=periodo y=prob_supervivencia_M /name="Hombres";
 series   x=periodo y=prob_supervivencia_F /name="Mujeres";
 series   x=periodo y=cociente_supervivencia/name="Cociente Supervivencia";
@@ -136,11 +136,11 @@ yaxis label=" ";
 label prob_supervivencia_M="Hombres" prob_supervivencia_F="Mujeres" cociente_supervivencia="Cociente Supervivencia";
 run;
 
-/*f) repetir para los 87 años*/
+/*f) repetir para los 87 aÃ±os*/
 
 proc sgplot data=lib.f_sup_both (where=(edad=87));
 title "Probabilidad de supervivencia y Cociente de Supervivencia";
-title2 "para edad=87 años durante el periodo 1991-2022";
+title2 "para edad=87 aÃ±os durante el periodo 1991-2022";
 series   x=periodo y=prob_supervivencia_M /name="Hombres";
 series   x=periodo y=prob_supervivencia_F /name="Mujeres";
 series   x=periodo y=cociente_supervivencia/name="Cociente Supervivencia";
