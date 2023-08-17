@@ -7,7 +7,7 @@ libname nombrelibreria "path";
 En el primer ejemplo, se emplean los datos del conjunto class, almacenado en la libreria sashelp, en vez de importar el conjunto, se procede a importar desde el codigo con las funciones cards y input.
 # Ejercicios SAS
 
-1) El conjunto de datos clase contiene la información relativa a los alumnos de una clase de baile en USA. La altura esta en pulgadas (1 pulgada=2.54 cm.) y el peso en libras (1 libra= 0.45 kilos).
+# 1) El conjunto de datos clase contiene la información relativa a los alumnos de una clase de baile en USA. La altura esta en pulgadas (1 pulgada=2.54 cm.) y el peso en libras (1 libra= 0.45 kilos).
 
 
 | Nombre | Sexo | Edad | Altura | Peso |
