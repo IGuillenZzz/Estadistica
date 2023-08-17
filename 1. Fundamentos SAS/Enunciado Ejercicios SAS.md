@@ -59,7 +59,7 @@ Haré las siguientes consideraciones:
 * Es importante la codificación debido a que la codificación de sas puede ser distinta y perderse información, en este caso es UTF-8
 * Es un archivo .csv separado por tabuladores, por eso es necesario delimiter="09"x
 * En un principio Proc Import, puede realizar esta importación de datos, sin embargo daría errores porque la variable total que almacena datos numericos, con puntos como separadores de miles y comas de decimales, por ello he optado por un paso data y el formato COMAX
-* Tener todas las funciones demográficas permitiría seguir analizando otras funciones, pero para alcanzar la tabla del ejercicio ha requerido de varias transformaciones, como se puede ver en el archivo tema1.2
+* Tener todas las funciones demográficas permitiría seguir analizando otras funciones, pero para alcanzar la tabla del ejercicio ha requerido de varias transformaciones, como se puede ver en el archivo ej1.2
 
 
 
